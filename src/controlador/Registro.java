@@ -6,6 +6,9 @@ import modelo.Libro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -105,4 +108,74 @@ public class Registro {
         
     }
     
+    public Libro buscarPorId(int idLibro){
+        Libro libro = new Libro();
+        try {
+            
+            Conexion con = new Conexion();
+            Connection cnx = con.obtenerConexion();
+            
+            
+            String query = "SELECT * FROM libro WHERE idlibro=?";
+            PreparedStatement stmt = cnx.prepareStatement(query);
+            stmt.setInt(1,idLibro);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                libro.setIdLibro(rs.getInt("idlibro"));
+                libro.setTitulo(rs.getString("titulo"));
+                libro.setAutor(rs.getString("autor"));
+                libro.setPublicacion(rs.getDate("publicacion"));
+                libro.setPrecio(rs.getInt("precio"));
+                libro.setDisponible(rs.getBoolean("disponible"));
+                
+            }
+            rs.close();
+            stmt.close();
+            cnx.close();
+            
+        } catch (SQLException e) {
+            System.out.println("Error SQL al listar el libro por id " + e.getMessage());
+        }
+        return libro;
+    }
+    
+    public List<Libro> buscarTodos(){
+        
+        List<Libro> lista = new ArrayList<>();
+        
+        
+        try {
+            
+            Conexion con = new Conexion();
+            Connection cnx = con.obtenerConexion();
+            
+            
+            String query = "SELECT * FROM libro order by titulo";
+            PreparedStatement stmt = cnx.prepareStatement(query);
+      
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                Libro libro = new Libro();
+                libro.setIdLibro(rs.getInt("idlibro"));
+                libro.setTitulo(rs.getString("titulo"));
+                libro.setAutor(rs.getString("autor"));
+                libro.setPublicacion(rs.getDate("publicacion"));
+                libro.setPrecio(rs.getInt("precio"));
+                libro.setDisponible(rs.getBoolean("disponible"));
+                
+                lista.add(libro);
+            }
+            rs.close();
+            stmt.close();
+            cnx.close();
+            
+        } catch (SQLException e) {
+            System.out.println("Error SQL al listar todos los libros " + e.getMessage());
+        }
+        return lista;
+        
+    }
 }

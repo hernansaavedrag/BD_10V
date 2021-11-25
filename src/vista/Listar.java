@@ -52,20 +52,20 @@ public class Listar extends javax.swing.JFrame {
 
         jtbl_datos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Título", "Autor", "Precio", "Disponible"
+                "ID", "Título", "Autor", "Precio", "Disponible"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, false
+                true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -133,24 +133,26 @@ public class Listar extends javax.swing.JFrame {
             List<Libro> lista = reg.buscarTodos();
 
             for (Libro lib : lista) {
+                id = lib.getIdLibro();
                 titulo = lib.getTitulo();
                 autor = lib.getAutor();
                 precio = lib.getPrecio();
                 disponible = lib.isDisponible();
 
-                modelo.addRow(new Object[]{titulo, autor, precio, disponible});
+                modelo.addRow(new Object[]{id,titulo, autor, precio, disponible});
 
             }
 
         } else { //consulta por id
 
             Libro libro = reg.buscarPorId(id);
+            id = libro.getIdLibro();
             titulo = libro.getTitulo();
             autor = libro.getAutor();
             precio = libro.getPrecio();
             disponible = libro.isDisponible();
             
-             modelo.addRow(new Object[]{titulo, autor, precio, disponible});
+             modelo.addRow(new Object[]{id,titulo, autor, precio, disponible});
         }
 
     }//GEN-LAST:event_jbtn_buscarActionPerformed

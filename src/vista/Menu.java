@@ -29,7 +29,9 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
         jmi_agregar = new javax.swing.JMenuItem();
+        jmi_eliminar = new javax.swing.JMenuItem();
         jmi_listar = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmi_salir = new javax.swing.JMenuItem();
@@ -41,13 +43,25 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu1.setText("Libros");
 
+        jMenu3.setText("Opciones");
+
         jmi_agregar.setText("Agregar");
         jmi_agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmi_agregarActionPerformed(evt);
             }
         });
-        jMenu1.add(jmi_agregar);
+        jMenu3.add(jmi_agregar);
+
+        jmi_eliminar.setText("Eliminar");
+        jmi_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_eliminarActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmi_eliminar);
+
+        jMenu1.add(jMenu3);
 
         jmi_listar.setText("Listar");
         jmi_listar.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +121,10 @@ public class Menu extends javax.swing.JFrame {
         new Listar().setVisible(true);
     }//GEN-LAST:event_jmi_listarActionPerformed
 
+    private void jmi_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_eliminarActionPerformed
+        new Eliminar().setVisible(true);
+    }//GEN-LAST:event_jmi_eliminarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -145,10 +163,12 @@ public class Menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem jmi_agregar;
+    private javax.swing.JMenuItem jmi_eliminar;
     private javax.swing.JMenuItem jmi_listar;
     private javax.swing.JMenuItem jmi_salir;
     // End of variables declaration//GEN-END:variables

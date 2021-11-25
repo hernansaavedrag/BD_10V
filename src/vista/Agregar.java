@@ -162,9 +162,9 @@ public class Agregar extends javax.swing.JFrame {
                         .addComponent(jtxt_mes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jtxt_ano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtxt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jtxt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -228,18 +228,18 @@ public class Agregar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtxt_tituloFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxt_tituloFocusGained
-        
+
         this.jtxt_titulo.setText("");
-        
+
     }//GEN-LAST:event_jtxt_tituloFocusGained
 
     private void jtxt_autorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxt_autorFocusGained
-        
+
         this.jtxt_autor.setText("");
     }//GEN-LAST:event_jtxt_autorFocusGained
 
     private void jtxt_diaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxt_diaFocusGained
-        
+
         this.jtxt_dia.setText("");
     }//GEN-LAST:event_jtxt_diaFocusGained
 
@@ -260,67 +260,71 @@ public class Agregar extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtn_SalirActionPerformed
 
     private void jbtn_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_enviarActionPerformed
-       
-        String titulo,autor,dia,mes,ano,fechaStr;
+
+        String titulo, autor, dia, mes, ano, fechaStr;
         Date fecha = null;
         int precio;
         boolean disponible;
-        
+
         titulo = this.jtxt_titulo.getText();
         if (titulo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese Título","Validación",2);
+            JOptionPane.showMessageDialog(this, "Ingrese Título", "Validación", 2);
             this.jtxt_titulo.requestFocus();
             return;
         }
-        
+
         autor = this.jtxt_autor.getText();
         if (autor.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese Autor","Validación",2);
+            JOptionPane.showMessageDialog(this, "Ingrese Autor", "Validación", 2);
             this.jtxt_autor.requestFocus();
             return;
         }
-        
+
         dia = this.jtxt_dia.getText();
         mes = this.jtxt_mes.getText();
         ano = this.jtxt_ano.getText();
-        
-        if (dia.isEmpty() ||mes.isEmpty() || ano.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese fecha","Validación",2);
+
+        if (dia.isEmpty() || mes.isEmpty() || ano.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese fecha", "Validación", 2);
             this.jtxt_dia.requestFocus();
             return;
         }
-        
-        fechaStr = dia+"/"+mes+"/"+ano;
+
+        fechaStr = dia + "/" + mes + "/" + ano;
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         try {
             fecha = formato.parse(fechaStr);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ingrese fecha de formato dd/mm/yyyy","Validación",2);
+            JOptionPane.showMessageDialog(this, "Ingrese fecha de formato dd/mm/yyyy", "Validación", 2);
             this.jtxt_dia.requestFocus();
         }
-        
+
         try {
             precio = Integer.parseInt(this.jtxt_precio.getText());
-            
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "El precio debe ser númerico","Validación",2);
+            JOptionPane.showMessageDialog(this, "El precio debe ser númerico", "Validación", 2);
             this.jtxt_precio.requestFocus();
             return;
         }
-        
+
         disponible = this.jchk_disponible.isSelected();
-        
-        Libro libro = new Libro(0,titulo, autor, fecha, precio, disponible);
-        
+
+        Libro libro = new Libro(0, titulo, autor, fecha, precio, disponible);
+
         Registro reg = new Registro();
-        
-        if (reg.agregar(libro)) {
-            JOptionPane.showMessageDialog(this, "Se agrego Libro","Información",1);
+
+        if (reg.buscarLibro(reg.buscarTodos(), titulo) == false) {
+
+            if (reg.agregar(libro)) {
+                JOptionPane.showMessageDialog(this, "Se agrego Libro", "Información", 1);
+            } else {
+                JOptionPane.showMessageDialog(this, "No Se agrego Libro", "Información", 0);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "El libro ya existe", "Información", 2);
         }
-        else{
-            JOptionPane.showMessageDialog(this, "No Se agrego Libro","Información",0);
-        }
-        
+
     }//GEN-LAST:event_jbtn_enviarActionPerformed
 
 //    /**

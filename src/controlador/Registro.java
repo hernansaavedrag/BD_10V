@@ -58,7 +58,7 @@ public class Registro {
             
             date = libro.getPublicacion();
             
-            String query = "UPDATE libro SET titulo=?,autor =?,publicacion=?,precio=?,disponible=? WHERE = idlibro=?";
+            String query = "UPDATE libro SET titulo=?,autor =?,publicacion=?,precio=?,disponible=? WHERE idlibro=?";
             PreparedStatement stmt = cnx.prepareStatement(query);
             stmt.setString(1, libro.getTitulo());
             stmt.setString(2, libro.getAutor());
